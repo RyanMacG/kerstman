@@ -1,0 +1,26 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: kerstman_development
+  pool: 5
+  host: localhost
+  username: ryanmacg
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: kerstman_test
+  pool: 5
+  host: localhost
+  username: ryanmacg
+  password:
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: kerstman_production
+  pool: 5
+  host: localhost
+  username: ryanmacg
+  password:
