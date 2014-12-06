@@ -1,4 +1,5 @@
 class StaticPagesController < ApplicationController
+  # TODO: Investigate presenters/facades so the page titles aren't ivars
   def home
     @page_title = 'Home'
   end
