@@ -1,0 +1,7 @@
+= form_for(@participant) do |f|
+  = render 'shared/error_messages', object: f.object
+  .field
+    = f.text_field    :name,   placeholder: 'Name of participant'
+    = f.text_field    :email,  placeholder: 'Partipant Email'
+    = f.hidden_field  :group_id
+  = f.submit 'Add', class: [:btn, 'btn-large', 'btn-primary']

@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
-  before_action :signed_in_user, only: [:create, :destroy, :index]
-  before_action :correct_user, only: :destroy
+  before_action :signed_in_user, only: [:create, :destroy, :index, :show]
+  before_action :correct_user, only: [:destroy, :show]
 
   def index
   end
@@ -23,6 +23,9 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    @participant = @group.participants.build
+    @participants = @group.participants.order('created_at ASC')
+                          .paginate(per_page: 15, page: (params[:page]))
     @page_title = @group.name
   end
 
