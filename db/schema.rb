@@ -32,14 +32,14 @@ ActiveRecord::Schema.define(version: 20141207123445) do
     t.string   "name"
     t.string   "email"
     t.integer  "group_id"
-    t.integer  "gifter_id"
+    t.integer  "partner_id"
     t.integer  "giftee_id"
     t.boolean  "matched",    default: false, null: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
 
-  add_index "participants", ["group_id", "gifter_id", "giftee_id"], name: "index_participants_on_group_id_and_gifter_id_and_giftee_id", using: :btree
+  add_index "participants", ["group_id", "partner_id", "giftee_id"], name: "index_participants_on_group_id_and_partner_id_and_giftee_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
