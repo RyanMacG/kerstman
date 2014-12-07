@@ -20,10 +20,10 @@ ActiveRecord::Schema.define(version: 20141207102128) do
     t.string   "name"
     t.string   "limit"
     t.string   "year"
-    t.boolean  "matched"
+    t.boolean  "matched",    default: false, null: false
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "groups", ["user_id", "created_at"], name: "index_groups_on_user_id_and_created_at", using: :btree

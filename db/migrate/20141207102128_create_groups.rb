@@ -4,7 +4,7 @@ class CreateGroups < ActiveRecord::Migration
       t.string :name
       t.string :limit
       t.string :year
-      t.boolean :matched
+      t.boolean :matched, default: false, null: false
       t.integer :user_id
       t.timestamps null: false
     end
