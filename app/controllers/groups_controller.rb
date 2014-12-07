@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
   before_action :signed_in_user, only: [:create, :destroy, :index]
+  before_action :correct_user, only: :destroy
 
   def index
   end
@@ -15,6 +16,9 @@ class GroupsController < ApplicationController
   end
 
   def destroy
+    @group.destroy
+    flash[:danger] = 'Group deleted'
+    redirect_to root_url
   end
 
   def show
