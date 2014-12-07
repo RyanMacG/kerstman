@@ -1,7 +1,7 @@
 class Participant < ActiveRecord::Base
   belongs_to :group
-  belongs_to :gifter,
-              foreign_key: 'gifter_id',
+  belongs_to :partner,
+              foreign_key: 'partner_id',
               class_name: 'Participant'
   belongs_to :giftee,
               foreign_key: 'giftee_id',
