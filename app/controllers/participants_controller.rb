@@ -17,7 +17,6 @@ class ParticipantsController < ApplicationController
   def edit
     @page_title = 'Update participant'
     @participant = Participant.find(params[:id])
-    @other_participants = Participant.suitable_partners(participant: @participant)
   end
 
   def update

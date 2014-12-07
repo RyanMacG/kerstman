@@ -10,6 +10,6 @@
       = f.label :email
       = f.text_field :email
 
-      = f.collection_select :partner_id, @other_participants, :id, :name, include_blank: true
+      = f.collection_select :partner_id, Participant.suitable_partners(participant: @participant), :id, :name, include_blank: true
 
       = f.submit 'Updated participant', class: [:btn, 'btn-large', 'btn-primary']
