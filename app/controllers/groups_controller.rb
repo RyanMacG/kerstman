@@ -23,6 +23,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    @page_title = @group.name
   end
 
   private
