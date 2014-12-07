@@ -1,6 +1,14 @@
 .row
-  %aside.span4
+  %aside.col-xs-6.col-md-4
     %section
       %h1
         = gravatar_for @user
         = @user.name
+  .col-md-8
+    - if @user.groups.any?
+      %h3
+        Groups
+        = (@user.groups.count)
+      %ul.groups
+        = render @groups
+      = will_paginate @groups
