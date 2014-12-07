@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :groups, dependent: :destroy
   before_save { email.downcase }
   before_create :create_remember_token
   validates_presence_of :name
