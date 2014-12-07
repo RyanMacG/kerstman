@@ -8,4 +8,10 @@ class Participant < ActiveRecord::Base
               class_name: 'Participant'
 
   validates_presence_of :name, :email, :group_id
+
+  class << self
+    def suitable_partners(participant:)
+      where(group_id: participant.group_id).where.not(id: participant.id)
+    end
+  end
 end
