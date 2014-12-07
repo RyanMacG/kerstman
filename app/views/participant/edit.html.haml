@@ -1,0 +1,15 @@
+%h1 Update your participant
+
+.row
+  .col-md-6.col-md-offset-3
+    = form_for(@participant) do |f|
+      = render 'shared/error_messages', object: f.object
+
+      = f.label :name
+      = f.text_field :name
+      = f.label :email
+      = f.text_field :email
+
+      = f.collection_select :partner_id, @other_participants, :id, :name, include_blank: true
+
+      = f.submit 'Updated participant', class: [:btn, 'btn-large', 'btn-primary']
