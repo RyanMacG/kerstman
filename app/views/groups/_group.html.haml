@@ -1,0 +1,5 @@
+%li
+  .group_block
+    = link_to group.name, group
+    - unless group.year.blank?
+      %span.year= group.year
