@@ -1,7 +1,21 @@
-.center.jumbotron
-  %h1 Kerstman
+- if signed_in?
+  .row
+    %aside.col-xs-6.col-md-4
+      %section
+        = render 'shared/user_info'
+      %section
+        = render 'shared/group_form'
+    .col-md-6
+      - if current_user.groups.any?
+        %h3
+          Recent Groups
+        %ul.groups
+          = render @groups
+- else
+  .center.jumbotron
+    %h1 Kerstman
 
-  %h2
-    A Secret Santa application built with groups that have couples in them in mind.
+    %h2
+      A Secret Santa application built with groups that have couples in them in mind.
 
-  = link_to 'Sign up!', signup_path, class: [:btn, 'btn-lg', 'btn-primary']
+    = link_to 'Sign up!', signup_path, class: [:btn, 'btn-lg', 'btn-primary']
