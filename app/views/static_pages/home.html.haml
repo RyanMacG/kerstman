@@ -6,11 +6,13 @@
       %section
         = render 'shared/group_form'
     .col-md-6
-      - if current_user.groups.any?
+      - if current_user.groups.count > 0
         %h3
           Recent Groups
         %ul.groups
           = render @groups
+      - else
+        %h4 You don't have any groups yet. Why not change that?
 - else
   .center.jumbotron
     %h1 Kerstman
