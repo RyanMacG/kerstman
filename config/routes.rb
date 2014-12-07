@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'static_pages#home'
   resources :users
   resources :groups
+  resources :participants, only: [:create, :edit, :update, :destroy]
   resources :sessions, only: [:new, :create, :destroy]
 
   get 'about' => 'static_pages#about'
