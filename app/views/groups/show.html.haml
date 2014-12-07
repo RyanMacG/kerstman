@@ -11,5 +11,13 @@
           = h(@group.limit)
       - else
         %p No limit set, please contact the organiser
-  .col-md-8
-    %h3 Participants
+    %section
+      = render 'shared/participants_form'
+  - if @participants.present?
+    .col-md-8
+      %h3
+        Participants
+        = (@participants.count)
+      %ul.participants
+        = render @participants
+        = will_paginate(@participants)
