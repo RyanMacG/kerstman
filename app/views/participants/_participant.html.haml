@@ -3,5 +3,5 @@
     = link_to(participant.name, edit_participant_path(participant))
     - unless participant.partner.blank?
       = h(participant.partner.name)
-    .boom_buttom
+    .boom_button
       = link_to 'x', participant, method: :delete, data: { confirm: 'Delete this participant?' }, title: "Delete: #{participant.name}", class: [:btn, 'btn-xs', 'btn-danger']
