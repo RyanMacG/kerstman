@@ -21,10 +21,9 @@ class ParticipantsController < ApplicationController
 
   def update
     @participant = Participant.find(params[:id])
+    remove_existing_partner(@participant)
     if @participant.update_attributes(participant_params)
-      @partner = Participant.find_by_id(params[:participant][:partner_id])
-      @partner.partner_id = @participant.id
-      @partner.save!
+      handle_partners(@participant)
       flash.now[:success] = 'Profile updated'
       redirect_to @participant.group
     else
@@ -35,5 +34,16 @@ class ParticipantsController < ApplicationController
   private
   def participant_params
     params.require(:participant).permit(:name, :email, :group_id, :partner_id)
+  end
+
+  def handle_partners(participant)
+    partner = Participant.find(participant.partner_id)
+    partner.partner_id = participant.id
+    partner.save
+  end
+
+  def remove_existing_partner(participant)
+    participant.partner.update_attribute(:partner, nil)
+    participant.update_attribute(:partner, nil)
   end
 end
