@@ -193,12 +193,17 @@ aside {
 }
 
 .group_block {
-  display: block;
+  display: inline;
 }
 
 .year {
-  float: right;
+  display: inline;
   color: $gray-light;
+}
+
+.boom_button {
+  display: inline;
+  float: right;
 }
 
 aside {
