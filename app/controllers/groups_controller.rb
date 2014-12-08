@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
   before_action :signed_in_user, only: [:create, :destroy, :index, :show, :match]
-  before_action :correct_user, only: [:destroy, :show, :match]
+  # before_action :correct_user, only: [:destroy, :show, :match]
 
   def index
   end
@@ -30,19 +30,23 @@ class GroupsController < ApplicationController
   end
 
   def match
+    @group = Group.find(params[:group])
     @group.participants.each do |participant|
       potential_giftees = Participant.matchable(group: @group, part: participant)
       giftee = potential_giftees.sample
-      if giftee.blank? && !@group.matched
+      if giftee.blank?
         @group.participants.update_all(giftee_id: nil, matched: false)
-        match
+        flash[:danger] = 'No match found, please try again'
+        redirect_to group_path(@group) and return
+      else
+        participant.giftee_id = giftee.id
+        giftee.matched = true
+        participant.save && giftee.save
       end
-      participant.giftee_id = giftee.id
-      giftee.matched = true
-      participant.save && giftee.save
     end
-    p 'done'
-    if @group.matched
+    if @group.all_matched
+      @group.matched = true
+      @group.save
       p 'success'
     end
     redirect_to group_path(@group)
