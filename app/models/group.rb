@@ -4,14 +4,13 @@ class Group < ActiveRecord::Base
   default_scope -> { order('created_at DESC') }
   validates_presence_of :user_id, :name
 
-  def self.matched
-    binding.pry
-    p 'foo'
-    participants.each do |part|
+  def all_matched
+    self.participants.each do |part|
       if part.giftee.blank?
-        matched = false
+        all_matched = false
       end
-      return matched
+      all_matched ||= true
+      return all_matched
     end
   end
 end
