@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class GroupMailer < ActionMailer::Base
-  default from: 'santa@kerstman.heroku.com'
+  default from: 'ryan@tictocfamily.com'
 
   def gifting_confirmation(participant, giftee, group)
     @participant = participant
