@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :participants, only: [:create, :edit, :update, :destroy]
   resources :sessions, only: [:new, :create, :destroy]
 
-  post '/groups/:id/match' => 'groups#match'
+  post '/groups/:group/match' => 'groups#match', as: :group_match
   get 'about' => 'static_pages#about'
   get 'help'  => 'static_pages#help'
   get 'signin' => 'sessions#new'
