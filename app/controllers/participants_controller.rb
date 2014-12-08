@@ -21,7 +21,7 @@ class ParticipantsController < ApplicationController
 
   def update
     @participant = Participant.find(params[:id])
-    remove_existing_partner(@participant)
+    remove_existing_partner(@participant) if @participant.partner.present?
     if @participant.update_attributes(participant_params)
       handle_partners(@participant)
       flash.now[:success] = 'Profile updated'

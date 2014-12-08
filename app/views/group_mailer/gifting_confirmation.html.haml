@@ -1,0 +1,21 @@
+%p
+  Hello
+  = @participant.name
+%p
+  You've been invited to take part in the
+  = @group.name
+  secret santa.
+- if !@group.limit.blank?
+  %p
+    The limit for this is
+    = @group.limit
+- else
+  %p There is no set limit for this exchange
+%p
+  You've been matched with
+  = @giftee.name
+
+%p
+  Have fun,
+  %br/
+  Santa

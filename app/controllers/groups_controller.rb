@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
-  before_action :signed_in_user, only: [:create, :destroy, :index, :show]
-  before_action :correct_user, only: [:destroy, :show]
+  before_action :signed_in_user, only: [:create, :destroy, :index, :show, :match]
+  # before_action :correct_user, only: [:destroy, :show, :match]
 
   def index
   end
@@ -29,8 +29,37 @@ class GroupsController < ApplicationController
     @page_title = @group.name
   end
 
+  def match
+    @group = Group.find(params[:group])
+    @group.participants.each do |participant|
+      potential_giftees = Participant.matchable(group: @group, part: participant)
+      giftee = potential_giftees.sample
+      if giftee.blank?
+        @group.participants.update_all(giftee_id: nil, matched: false)
+        flash[:danger] = 'No match found, please try again'
+        redirect_to group_path(@group) and return
+      else
+        participant.giftee_id = giftee.id
+        giftee.matched = true
+        participant.save && giftee.save
+      end
+    end
+    if @group.all_matched
+      @group.matched = true
+      @group.save
+      send_emails(@group)
+    end
+    redirect_to group_path(@group)
+  end
+
   private
   def group_params
     params.require(:group).permit(:name, :year, :limit)
+  end
+
+  def send_emails(group)
+    group.participants.each do |part|
+      GroupMailer.gifting_confirmation(part, part.giftee, @group).deliver
+    end
   end
 end
