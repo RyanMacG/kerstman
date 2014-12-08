@@ -1,0 +1,25 @@
+.row
+  %aside.col-md-4
+    %section
+      %h1= @group.name
+      %p
+        Organiser:
+        = @group.user.name
+      - if @group.limit.present?
+        %p
+          Limit:
+          = h(@group.limit)
+      - else
+        %p No limit set, please contact the organiser
+    %section
+      = render 'shared/participants_form'
+  - if @participants.present?
+    .col-md-8
+      %h3
+        Participants
+        = (@participants.count)
+      %ul.participants
+        = render @participants
+        = will_paginate(@participants)
+      - if @participants.count > 2 && !@group.matched
+        = link_to 'Match', group_match_path(@group), class: "btn btn-primary", method: 'post'
