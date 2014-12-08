@@ -47,7 +47,7 @@ class GroupsController < ApplicationController
     if @group.all_matched
       @group.matched = true
       @group.save
-      p 'success'
+      send_emails(@group)
     end
     redirect_to group_path(@group)
   end
@@ -55,5 +55,11 @@ class GroupsController < ApplicationController
   private
   def group_params
     params.require(:group).permit(:name, :year, :limit)
+  end
+
+  def send_emails(group)
+    group.participants.each do |part|
+      GroupMailer.gifting_confirmation(part, part.giftee, @group).deliver
+    end
   end
 end
